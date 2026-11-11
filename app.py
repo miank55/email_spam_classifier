@@ -59,7 +59,7 @@ def predict():
     try:
         message_tfidf = vectorizer.transform([message])
         prediction = model.predict(message_tfidf)[0]
-        is_spam = str(prediction).strip().lower() in {"1", "spam"}
+        is_spam = str(prediction).strip().lower() in {"1", "1.0", "spam"}
         result = "Spam 🚨" if is_spam else "Ham ✅"
         return jsonify({"prediction": result})
     except Exception:
