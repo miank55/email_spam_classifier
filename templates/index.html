@@ -1,86 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SMS Spam Classifier</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="MailShield email and SMS spam classification demo powered by machine learning.">
+  <title>MailShield | Message Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <div class="sc-root">
-
-    <!-- Header -->
-    <div class="sc-header">
-      <div class="sc-logo">🛡️</div>
-      <div class="sc-title-group">
-        <h1>Email Spam Classifier</h1>
-        <p>AI-powered message analysis</p>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="sc-stats">
-      <div class="sc-stat">
-        <div class="sc-stat-label">
-          <span class="sc-stat-dot" style="background:#6366f1;"></span> Analyzed
-        </div>
-        <div class="sc-stat-val" id="stat-total">0</div>
-      </div>
-      <div class="sc-stat">
-        <div class="sc-stat-label">
-          <span class="sc-stat-dot" style="background:#ef4444;"></span> Spam
-        </div>
-        <div class="sc-stat-val" id="stat-spam">0</div>
-      </div>
-      <div class="sc-stat">
-        <div class="sc-stat-label">
-          <span class="sc-stat-dot" style="background:#14b8a6;"></span> Ham
-        </div>
-        <div class="sc-stat-val" id="stat-ham">0</div>
-      </div>
-    </div>
-
-    <!-- Input Area -->
-    <div class="sc-input-area" id="input-area">
-      <div class="sc-input-top">
-        <span class="sc-input-badge">SMS MESSAGE</span>
-        <span class="sc-char-count" id="char-count">0 / 2000</span>
-      </div>
-      <textarea
-        class="sc-textarea"
-        id="message"
-        placeholder="Paste or type your SMS message here..."
-        maxlength="2000"
-        aria-label="SMS message input"
-      ></textarea>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="sc-actions">
-      <button class="sc-btn-primary" onclick="predictSpam()" id="predict-btn">
-        <i class="ti ti-shield-check"></i>
-        Analyze Message
-      </button>
-      <button class="sc-btn-clear" onclick="clearInput()" title="Clear">
-        <i class="ti ti-x"></i>
-      </button>
-    </div>
-
-    <!-- Result -->
-    <div id="result"></div>
-
-    <!-- History -->
-    <div class="sc-history" id="history-section" style="display:none;">
-      <div class="sc-history-title">Recent scans</div>
-      <div class="sc-history-list" id="history-list"></div>
-    </div>
-
-  </div>
-
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <main class="shell">
+    <nav class="topbar">
+      <a class="brand" href="/" aria-label="MailShield home"><span class="brand-mark">M</span><span>mail<span class="brand-accent">shield</span></span></a>
+      <span class="status"><i></i> CLASSIFIER ONLINE</span>
+    </nav>
+    <section class="hero">
+      <div class="eyebrow"><span></span> MESSAGE INTELLIGENCE</div>
+      <h1>Know what’s in<br><em>your inbox.</em></h1>
+      <p class="intro">A machine-learning assistant that checks message text for patterns commonly associated with spam.</p>
+    </section>
+    <section class="workspace">
+      <div class="workspace-head"><div><span class="section-kicker">01 / INPUT</span><h2>Inspect a message</h2></div><span class="secure-label"> <b>✳</b> PRIVATE SESSION</span></div>
+      <label class="sr-only" for="message">Paste a message to classify</label>
+      <textarea id="message" maxlength="5000" placeholder="Paste an email or SMS message here…&#10;&#10;Example: Congratulations! You have been selected for a reward. Click the link now." spellcheck="true"></textarea>
+      <div class="input-meta"><span id="char-count">0 / 5,000 characters</span><button class="text-button" id="clear-btn" type="button">Clear text <span>↗</span></button></div>
+      <div class="samples"><span>TRY A SAMPLE</span><button type="button" class="sample" data-sample="Congratulations! You have won a free gift card. Claim your prize now by clicking this link!">Promotional message</button><button type="button" class="sample" data-sample="Hi, are we still meeting at the library tomorrow at 10 AM? Please let me know.">Normal message</button></div>
+      <button id="predict-btn" class="analyze-btn" type="button"><span>Analyze message</span><b>↗</b></button>
+      <p class="disclaimer">Demo only · Do not use this result as the sole basis for security decisions.</p>
+      <section id="result" class="result-slot" aria-live="polite"></section>
+    </section>
+    <footer><span>MAILSHIELD <i>·</i> MACHINE LEARNING DEMO</span><span>Built with Python + Flask + scikit-learn</span></footer>
+  </main>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
-
 </body>
 </html>
