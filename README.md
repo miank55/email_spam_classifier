@@ -1,136 +1,73 @@
-# Project Title
-# Email Spam Classifier
+# MailShield — Email & SMS Spam Classifier
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Render-success)](https://email-spam-classifier-f4ev.onrender.com)
-[![NumPy](https://img.shields.io/badge/NumPy-Data_Processing-013243?logo=numpy&logoColor=white)](https://numpy.org/)
-[![Pandas](https://img.shields.io/badge/Pandas-Data_Analysis-150458?logo=pandas&logoColor=peach)](https://pandas.pydata.org/)
-[![Python](https://img.shields.io/badge/Python-3.10.8-blue)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-Web_App-yellow)](https://flask.palletsprojects.com/)
-[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)](https://scikit-learn.org/)
-[![Status](https://img.shields.io/badge/Status-Active-success)]()
-[![GitHub](https://img.shields.io/badge/GitHub-Repository-181717?style=flat&logo=github&logoColor=cyan)](https://github.com/LavkushPrasad)
-<!-- [![License](https://img.shields.io/badge/License-MIT-green)]() -->
+A web-based message classification demo powered by a pre-trained TF-IDF vectorizer and stacking ensemble model. The interface accepts message text and returns a Spam/Ham prediction. The deployed service also exposes a lightweight health endpoint.
 
+## Live demo
 
-Machine Learning-based Email Spam Classifier using TF-IDF and Stacking Ensemble.
+https://email-spam-classifier-f4ev.onrender.com
 
-# Brief Summary
+## Features
 
-A machine learning-based web application that classifies emails as Spam or Ham (Legitimate) using TF-IDF and a Stacking Ensemble model. The application is deployed on Render and can be accessed here: https://email-spam-classifier-f4ev.onrender.com
+- Responsive dark interface with a focused message-analysis workflow
+- Sample messages for quick testing
+- Character counter and clear action
+- Flask prediction API with input validation
+- Optional model confidence when the estimator exposes `predict_proba`
+- Health check at `/health`
 
-# Overview
+## Technology
 
-This project is a Machine Learning-based Email Spam Detection System that classifies emails as Spam or Ham (Legitimate) using a Stacking Ensemble Learning approach.
+Python · Flask · scikit-learn · TF-IDF · Stacking Ensemble · Joblib · HTML · CSS · JavaScript · Render
 
-The model combines the strengths of multiple machine learning algorithms to improve classification performance and reduce false predictions.
+## How it works
 
-# Problem Statement
+1. A user pastes an email or SMS message.
+2. The saved TF-IDF vectorizer transforms the text into numerical features.
+3. The saved stacking ensemble predicts the class.
+4. The Flask API returns the Spam/Ham label and, when supported, the predicted-class probability.
 
-Email spam and phishing attacks continue to be major cybersecurity threats. Manually filtering unwanted emails is inefficient and error-prone. This project aims to automate spam detection using machine learning techniques.
+The model artifacts (`stacking_model.pkl` and `tfidf_vectorizer.pkl`) are included in the repository. This repository uses the existing trained artifacts; the interface and API hardening have been updated for this deployment.
 
-# Dataset
-
-* SMS Spam Collection Dataset (used for model training and experimentation)
-* Contains labeled spam and ham messages
-* Preprocessed and transformed using TF-IDF Vectorization
-
-# Tools and Technologies
-
-* Python
-* Flask
-* Scikit-learn
-* Pandas
-* NumPy
-* Joblib
-* HTML
-* CSS
-* JavaScript
-* Git & GitHub
-
-# Methods
-
-1. Data Cleaning and Preprocessing
-2. Text Vectorization using TF-IDF
-3. Model Training
-
-   * Logistic Regression
-   * Multinomial Naive Bayes
-   * Support Vector Machine (SVM)
-4. Stacking Ensemble Learning
-5. Model Evaluation
-6. Flask Deployment
-
-# Key Insights
-
-* TF-IDF effectively converts text into numerical features.
-* Stacking Ensemble combines multiple models to improve robustness.
-* Ensemble methods achieved better overall performance compared to individual models.
-
-# Dashboard / Model / Output
-
-### Input
-
-Paste email content into the application.
-
-### Processing
-
-TF-IDF Vectorization → Stacking Ensemble Prediction
-
-### Output
-
-* Spam Email 🚨
-* Ham (Legitimate) Email ✅
-
-# How to Run this Project?
-
-### Clone Repository
+## Run locally
 
 ```bash
-git clone https://github.com/LavkushPrasad/email_spam_classifier.git
-cd email_class
+git clone https://github.com/miank55/email_spam_classifier.git
+cd email_spam_classifier
+python -m venv .venv
 ```
 
-### Create Virtual Environment
-
-```bash
-python -m venv myenv
-myenv\Scripts\activate
-```
-
-### Install Dependencies
-
-```bash
+Windows PowerShell:
+```powershell
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-```
-
-### Run Application
-
-```bash
 python app.py
 ```
 
-Open:
+Open http://127.0.0.1:5000.
 
-```text
-http://127.0.0.1:5000
-```
+## API
 
-# Results & Conclusion
+- `GET /` — web interface
+- `GET /health` — service health response
+- `POST /predict` — form field `message`; returns `prediction`, `label`, and `confidence` when supported by the model
 
-The model successfully classifies spam and legitimate messages using machine learning techniques. The Stacking Ensemble model demonstrated strong classification performance and provides a practical approach for spam detection applications.
+## Important notes
 
-# Future Work
+- This is an educational demonstration, not a production email security gateway.
+- The model was trained before this interface refresh; UI changes do not imply that the model was retrained.
+- A model score is not a guarantee that a message is safe. Verify links, senders, and requests independently.
+- Training data and model provenance should be checked against the original project documentation before making claims about dataset size or evaluation metrics.
 
-* Train on large-scale email datasets such as Enron and SpamAssassin
-* Add phishing detection features
-* Integrate email header analysis
-* Implement deep learning models (LSTM/BERT)
-* Support multilingual spam detection
+## Attribution
 
-# 👨‍💻 Author & Contact
+The original project and trained model artifacts were created by **Luvkush Prasad**. This repository is a permitted personal deployment/adaptation. The current maintainer, **Mayank Kumar Singh**, updated the interface, Flask request handling, and project documentation for this deployment. Original authorship of the underlying model and source project remains with the original developer.
 
-**Lavkush Prasad**
+Original developer:
+- GitHub: https://github.com/LavkushPrasad
+- LinkedIn: https://www.linkedin.com/in/lavkushprasad27/
 
-GitHub: https://github.com/LavkushPrasad
+Deployment repository:
+- https://github.com/miank55/email_spam_classifier
 
-LinkedIn: https://www.linkedin.com/in/lavkushprasad27/
+---
+MailShield is a presentation name for this adapted deployment; it does not imply ownership of the original model or training work.
